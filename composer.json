@@ -1,0 +1,16 @@
+{
+	"name": "librette/doctrine-queries",
+	"require": {
+		"librette/queries": "@dev",
+		"nette/utils": "~2.2",
+		"kdyby/doctrine": "@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"Librette\\Doctrine\\Queries\\": "src/"
+		},
+		"files": [
+			"src/exceptions.php"
+		]
+	}
+}
