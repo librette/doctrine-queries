@@ -4,6 +4,7 @@ namespace Librette\Doctrine\Queries;
 use Doctrine\ORM\EntityManager;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IQueryHandler;
+use Librette\Queries\IQueryHandlerAccessor;
 use Nette\Object;
 
 /**
@@ -15,13 +16,18 @@ class Queryable extends Object implements IQueryable
 	/** @var EntityManager */
 	protected $entityManager;
 
+	/** @var IQueryHandlerAccessor */
+	private $queryHandlerAccessor;
+
 
 	/**
 	 * @param EntityManager
+	 * @param IQueryHandlerAccessor
 	 */
-	public function __construct(EntityManager $entityManager)
+	public function __construct(EntityManager $entityManager, IQueryHandlerAccessor $queryHandlerAccessor)
 	{
 		$this->entityManager = $entityManager;
+		$this->queryHandlerAccessor = $queryHandlerAccessor;
 	}
 
 
@@ -48,8 +54,16 @@ class Queryable extends Object implements IQueryable
 	 */
 	public function getHandler()
 	{
-		return NULL; //todo
+		return $this->queryHandlerAccessor->get();
 	}
 
+
+	/**
+	 * @return EntityManager
+	 */
+	public function getEntityManager()
+	{
+		return $this->entityManager;
+	}
 
 }

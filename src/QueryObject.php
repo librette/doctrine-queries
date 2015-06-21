@@ -6,28 +6,29 @@ use Kdyby\Doctrine\DqlSelection;
 use Kdyby\Doctrine\NativeQueryBuilder;
 use Kdyby\Doctrine\NativeQueryWrapper;
 use Librette\Queries\InvalidArgumentException;
-use Librette\Queries\IQuery;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IQueryType;
+use Librette\Queries\IResultSet;
+use Librette\Queries\IResultSetQuery;
 use Librette\Queries\UnexpectedValueException;
 use Nette\Object;
 
 /**
  * @author David Matejka
  */
-abstract class QueryObject extends Object implements IQuery, IQueryType
+abstract class QueryObject extends Object implements IResultSetQuery, IQueryType
 {
 
 	/** @var \Doctrine\ORM\Query */
 	private $lastQuery;
 
-	/** @var \Kdyby\Doctrine\ResultSet */
+	/** @var IResultSet */
 	private $lastResult;
 
 
 	/**
 	 * @param IQueryable
-	 * @return mixed
+	 * @return IResultSet
 	 */
 	public function fetch(IQueryable $queryable)
 	{
@@ -85,9 +86,14 @@ abstract class QueryObject extends Object implements IQuery, IQueryType
 	}
 
 
+	/**
+	 * @param Doctrine\ORM\Query
+	 * @param Queryable
+	 * @return IResultSet
+	 */
 	protected function createResultSet(Doctrine\ORM\Query $query, Queryable $queryable)
 	{
-		return new ResultSet($queryable, $this, $queryable);
+		return new ResultSet($query, $this, $queryable);
 	}
 
 

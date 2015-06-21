@@ -13,7 +13,7 @@ use Nette\Utils\Paginator as UIPaginator;
 /**
  * @author David Matejka
  */
-class ResultSet extends Nette\Object implements IResultSet
+class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 {
 
 	/** @var int */

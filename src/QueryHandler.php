@@ -29,7 +29,7 @@ class QueryHandler extends Object implements IQueryHandler
 	 * @param IQuery
 	 * @return mixed|IResultSet
 	 */
-	public function handle(IQuery $query)
+	public function fetch(IQuery $query)
 	{
 		return $query->fetch($this->queryable);
 	}
