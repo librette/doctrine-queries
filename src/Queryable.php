@@ -31,11 +31,11 @@ class Queryable extends Object implements IQueryable
 	}
 
 
-	public function createQueryBuilder($entityClass = NULL, $alias = NULL)
+	public function createQueryBuilder($entityClass = NULL, $alias = NULL, $indexBy = NULL)
 	{
 		$qb = $this->entityManager->createQueryBuilder();
 		if ($entityClass) {
-			$qb->from($entityClass, $alias);
+			$qb->from($entityClass, $alias, $indexBy);
 			$qb->select($alias);
 		}
 
