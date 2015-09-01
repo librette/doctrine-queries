@@ -3,7 +3,11 @@
 	"require": {
 		"librette/queries": "@dev",
 		"nette/utils": "~2.2",
-		"kdyby/doctrine": "@dev",
+		"kdyby/doctrine": "@dev"
+	},
+	"require-dev": {
+		"nette/tester": "@dev",
+		"tracy/tracy": "~2.3",
 		"mockery/mockery": "0.9.*"
 	},
 	"autoload": {
@@ -13,9 +17,5 @@
 		"files": [
 			"src/exceptions.php"
 		]
-	},
-	"require-dev": {
-		"nette/tester": "@dev",
-		"tracy/tracy": "~2.3"
 	}
 }
