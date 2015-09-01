@@ -7,7 +7,6 @@ use Kdyby\Doctrine\NativeQueryBuilder;
 use Kdyby\Doctrine\NativeQueryWrapper;
 use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryable;
-use Librette\Queries\IQueryType;
 use Librette\Queries\IResultSet;
 use Librette\Queries\IResultSetQuery;
 use Librette\Queries\UnexpectedValueException;
@@ -16,7 +15,7 @@ use Nette\Object;
 /**
  * @author David Matejka
  */
-abstract class QueryObject extends Object implements IResultSetQuery, IQueryType
+abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 {
 
 	/** @var \Doctrine\ORM\Query */
@@ -74,15 +73,6 @@ abstract class QueryObject extends Object implements IResultSetQuery, IQueryType
 	public function getLastQuery()
 	{
 		return $this->lastQuery;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getQueryType()
-	{
-		return 'doctrine';
 	}
 
 
