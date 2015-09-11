@@ -19,7 +19,8 @@ class DoctrineQueriesExtension extends CompilerExtension
 			->setClass(Queryable::class);
 		$builder->addDefinition($this->prefix('queryHandler'))
 			->setClass(QueryHandler::class)
-			->addTag(QueriesExtension::TAG_QUERY_HANDLER);
+			->addTag(QueriesExtension::TAG_QUERY_HANDLER)
+			->setAutowired(FALSE);
 	}
 
 }
