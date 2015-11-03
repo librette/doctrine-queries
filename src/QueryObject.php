@@ -2,14 +2,12 @@
 namespace Librette\Doctrine\Queries;
 
 use Doctrine;
-use Kdyby\Doctrine\DqlSelection;
-use Kdyby\Doctrine\NativeQueryBuilder;
-use Kdyby\Doctrine\NativeQueryWrapper;
+use Doctrine\ORM\QueryBuilder;
+use Librette\Doctrine\Queries\Specifications\TSpecificationQuery;
 use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IResultSet;
 use Librette\Queries\IResultSetQuery;
-use Librette\Queries\UnexpectedValueException;
 use Nette\Object;
 
 /**
@@ -17,6 +15,7 @@ use Nette\Object;
  */
 abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 {
+	use TSpecificationQuery;
 
 	/** @var \Doctrine\ORM\Query */
 	private $lastQuery;
@@ -42,9 +41,6 @@ abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 	}
 
 
-	abstract protected function createQuery(Queryable $queryable);
-
-
 	/**
 	 * @param IQueryable
 	 * @return \Doctrine\ORM\Query
@@ -52,7 +48,11 @@ abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 	 */
 	public function getQuery(Queryable $repository)
 	{
-		$query = $this->toQuery($this->createQuery($repository));
+		$qb = $this->createQuery($repository);
+		$this->applySpecifications($qb, $qb->getRootAliases()[0]);
+
+		$query = $qb->getQuery();
+		$this->modifyQuery($query);
 
 		if ($this->lastQuery && $this->lastQuery->getDQL() === $query->getDQL()) {
 			$query = $this->lastQuery;
@@ -87,31 +87,10 @@ abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 	}
 
 
-	private function toQuery($query)
-	{
-		if ($query instanceof Doctrine\ORM\QueryBuilder) {
-			$query = $query->getQuery();
-
-		} elseif ($query instanceof DqlSelection) {
-			$query = $query->createQuery();
-
-		} elseif ($query instanceof Doctrine\ORM\NativeQuery) {
-			$query = new NativeQueryWrapper($query);
-
-		} elseif ($query instanceof NativeQueryBuilder) {
-			$query = $query->getQuery();
-		}
-
-		if (!$query instanceof Doctrine\ORM\AbstractQuery) {
-			throw new UnexpectedValueException(
-				"Method " . $this->getReflection()->getMethod('doCreateQuery') . " must return " .
-				"instanceof Doctrine\\ORM\\Query or Kdyby\\Doctrine\\QueryBuilder or Kdyby\\Doctrine\\DqlSelection, " .
-				(is_object($query) ? 'instance of ' . get_class($query) : gettype($query)) . " given."
-			);
-		}
-
-		return $query;
-	}
-
+	/**
+	 * @param Queryable
+	 * @return QueryBuilder
+	 */
+	abstract protected function createQuery(Queryable $queryable);
 
 }
