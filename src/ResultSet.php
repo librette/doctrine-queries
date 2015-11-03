@@ -90,24 +90,6 @@ class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @return bool|null
-	 */
-	public function getUseOutputWalkers()
-	{
-		return $this->useOutputWalkers;
-	}
-
-
-	/**
-	 * @return boolean
-	 */
-	public function getFetchJoinCollection()
-	{
-		return $this->fetchJoinCollection;
-	}
-
-
-	/**
 	 * @param int
 	 * @param int
 	 * @return ResultSet
@@ -171,16 +153,17 @@ class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @param int $hydrationMode
+	 * @param int|null
 	 * @return \ArrayIterator
 	 */
-	public function getIterator($hydrationMode = ORM\AbstractQuery::HYDRATE_OBJECT)
+	public function getIterator($hydrationMode = NULL)
 	{
 		if ($this->iterator !== NULL) {
 			return $this->iterator;
 		}
-
-		$this->query->setHydrationMode($hydrationMode);
+		if ($hydrationMode !== NULL) {
+			$this->query->setHydrationMode($hydrationMode);
+		}
 		$this->frozen = TRUE;
 		if ($this->fetchJoinCollection && ($this->query->getMaxResults() > 0 || $this->query->getFirstResult() > 0)) {
 			$this->iterator = $this->createPaginatedQuery($this->query)->getIterator();
@@ -195,10 +178,10 @@ class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @param int
+	 * @param int|null
 	 * @return array
 	 */
-	public function toArray($hydrationMode = ORM\AbstractQuery::HYDRATE_OBJECT)
+	public function toArray($hydrationMode = NULL)
 	{
 		return iterator_to_array(clone $this->getIterator($hydrationMode), TRUE);
 	}
@@ -214,7 +197,7 @@ class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @param ORM\Query $query
+	 * @param ORM\Query
 	 * @return ResultPaginator
 	 */
 	private function createPaginatedQuery(ORM\Query $query)
