@@ -170,10 +170,11 @@ class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
 		} else {
 			$this->iterator = new \ArrayIterator($this->query->getResult(NULL));
 		}
-
+		if ($this->repository && $this->queryObject) {
+			$this->queryObject->queryFetched($this->repository, $this->iterator);
+		}
 
 		return $this->iterator;
-
 	}
 
 

@@ -12,10 +12,15 @@ use Nette\Object;
 
 /**
  * @author David Matejka
+ *
+ * @method onPostFetch(QueryObject $self, Queryable $queryable, \Traversable $data)
  */
 abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 {
 	use TSpecificationQuery;
+
+	/** @var callable[] */
+	public $onPostFetch = [];
 
 	/** @var \Doctrine\ORM\Query */
 	private $lastQuery;
@@ -92,5 +97,16 @@ abstract class QueryObject extends Object implements IResultSetQuery, IQuery
 	 * @return QueryBuilder
 	 */
 	abstract protected function createQuery(Queryable $queryable);
+
+
+	/**
+	 * @param Queryable
+	 * @param \Traversable
+	 * @internal
+	 */
+	public function queryFetched(Queryable $queryable, \Traversable $data)
+	{
+		$this->onPostFetch($this, $queryable, $data);
+	}
 
 }
