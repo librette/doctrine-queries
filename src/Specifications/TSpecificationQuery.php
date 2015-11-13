@@ -24,8 +24,12 @@ trait TSpecificationQuery
 
 	protected function applySpecifications(QueryBuilder $queryBuilder, $alias)
 	{
+		$andX = new Query\Expr\Andx();
 		foreach ($this->specifications as $specification) {
-			$specification->match($queryBuilder, $alias);
+			array_map([$andX, 'add'], array_filter((array) $specification->match($queryBuilder, $alias)));
+		}
+		if ($andX->count() > 0) {
+			$queryBuilder->andWhere($andX);
 		}
 	}
 

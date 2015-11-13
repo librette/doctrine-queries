@@ -13,7 +13,7 @@ interface ISpecification
 	/**
 	 * @param QueryBuilder
 	 * @param string
-	 * @return void
+	 * @return void|string|array|mixed
 	 */
 	public function match(QueryBuilder $queryBuilder, $alias);
 
