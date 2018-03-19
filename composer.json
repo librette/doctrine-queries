@@ -1,9 +1,10 @@
 {
 	"name": "librette/doctrine-queries",
 	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"type": "library",
 	"require": {
 		"librette/queries": "@dev",
-		"nette/utils": "~2.2",
+		"nette/utils": "~2.4",
 		"kdyby/doctrine": "@dev"
 	},
 	"require-dev": {
