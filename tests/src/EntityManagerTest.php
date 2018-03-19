@@ -30,7 +30,7 @@ trait EntityManagerTest
 		$config->setQueryCacheImpl($cache);
 		$config->setProxyDir(TEMP_DIR);
 		$config->setProxyNamespace('TestProxy');
-		$config->setDefaultRepositoryClassName(Kdyby\Doctrine\EntityDao::class);
+		$config->setDefaultRepositoryClassName(Kdyby\Doctrine\EntityRepository::class);
 		$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__], FALSE));
 		$em = Kdyby\Doctrine\EntityManager::create($connection, $config);
 		if ($createSchema === FALSE) {

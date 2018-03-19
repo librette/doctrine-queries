@@ -29,7 +29,7 @@ class ExtensionTestCase extends Tester\TestCase
 	public function testConfig()
 	{
 		$loader = new ContainerLoader(TEMP_DIR);
-		$cls = $loader->load('', function (Compiler $compiler) {
+		$cls = $loader->load(function (Compiler $compiler) {
 			$compiler->getContainerBuilder()->addDefinition('em')
 				->setClass(EntityManagerMock::class);
 			$compiler->addExtension('doctrineQueries', new DoctrineQueriesExtension());

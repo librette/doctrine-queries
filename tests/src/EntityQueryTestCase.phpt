@@ -35,7 +35,7 @@ class EntityQueryTestCase extends Tester\TestCase
 		$em->persist($user = new User('John'))->flush();
 		$em->getConnection()->getConfiguration()->setSQLLogger($logger = new DebugStack());
 		Assert::same(0, $logger->currentQuery);
-		$query = new EntityQuery(User::class, $user->id);
+		$query = new EntityQuery(User::class, $user->getId());
 		Assert::same($user, $queryHandler->fetch($query));
 		Assert::same(0, $logger->currentQuery);
 	}
@@ -50,12 +50,12 @@ class EntityQueryTestCase extends Tester\TestCase
 
 		$em->getConnection()->getConfiguration()->setSQLLogger($logger = new DebugStack());
 		Assert::same(0, $logger->currentQuery);
-		$query = new EntityQuery(User::class, $user->id);
-		Assert::same($user->id, $user2 = $queryHandler->fetch($query)->id);
+		$query = new EntityQuery(User::class, $user->getId());
+		Assert::same($user->getId(), $user2 = $queryHandler->fetch($query)->getId());
 		Assert::same(1, $logger->currentQuery);
 
-		$query = new EntityQuery(User::class, $user->id);
-		Assert::same($user2, $queryHandler->fetch($query)->id);
+		$query = new EntityQuery(User::class, $user->getId());
+		Assert::same($user2, $queryHandler->fetch($query)->getId());
 		Assert::same(1, $logger->currentQuery);
 	}
 

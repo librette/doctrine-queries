@@ -3,13 +3,14 @@ namespace LibretteTests\Doctrine\Queries\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Kdyby\Doctrine\Entities\BaseEntity;
+use Nette\SmartObject;
 
 /**
  * @ORM\Entity
  */
-class User extends BaseEntity
+class User
 {
+	use SmartObject;
 	use Identifier;
 
 
