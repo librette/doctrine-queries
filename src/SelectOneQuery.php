@@ -2,9 +2,6 @@
 
 namespace Librette\Doctrine\Queries;
 
-/**
- * @author David Matejka
- */
 class SelectOneQuery extends BaseQueryObject
 {
 

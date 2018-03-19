@@ -12,8 +12,6 @@ use Librette\Queries\IResultSetQuery;
 use Nette\SmartObject;
 
 /**
- * @author David Matejka
- *
  * @method onPostFetch(QueryObject $self, Queryable $queryable, \Traversable $data)
  */
 abstract class QueryObject implements IResultSetQuery, IQuery

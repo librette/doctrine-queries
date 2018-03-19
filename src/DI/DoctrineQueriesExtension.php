@@ -7,9 +7,6 @@ use Librette\Doctrine\Queries\QueryHandler;
 use Librette\Queries\DI\QueriesExtension;
 use Nette\DI\CompilerExtension;
 
-/**
- * @author David Matejka
- */
 class DoctrineQueriesExtension extends CompilerExtension
 {
 

@@ -4,9 +4,6 @@ namespace Librette\Doctrine\Queries;
 
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * @author David Matejka
- */
 class SelectQuery extends QueryObject
 {
 

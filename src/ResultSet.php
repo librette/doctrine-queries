@@ -11,9 +11,6 @@ use Nette;
 use Nette\Utils\Paginator as UIPaginator;
 
 
-/**
- * @author David Matejka
- */
 class ResultSet implements \IteratorAggregate, IResultSet
 {
 	use Nette\SmartObject;

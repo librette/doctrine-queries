@@ -6,9 +6,6 @@ use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryable;
 use Nette\SmartObject;
 
-/**
- * @author David Matejka
- */
 abstract class BaseQueryObject implements IQuery
 {
 	use SmartObject;

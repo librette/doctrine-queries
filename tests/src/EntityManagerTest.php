@@ -8,9 +8,6 @@ use Kdyby;
 use Nette;
 
 
-/**
- * @author David Matejka
- */
 trait EntityManagerTest
 {
 
