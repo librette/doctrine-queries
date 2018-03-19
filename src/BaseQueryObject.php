@@ -4,12 +4,14 @@ namespace Librette\Doctrine\Queries;
 use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryable;
 use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-abstract class BaseQueryObject extends Object implements IQuery
+abstract class BaseQueryObject implements IQuery
 {
+	use SmartObject;
 
 	/**
 	 * @param IQueryable

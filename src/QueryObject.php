@@ -8,15 +8,16 @@ use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IResultSet;
 use Librette\Queries\IResultSetQuery;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  *
  * @method onPostFetch(QueryObject $self, Queryable $queryable, \Traversable $data)
  */
-abstract class QueryObject extends Object implements IResultSetQuery, IQuery
+abstract class QueryObject implements IResultSetQuery, IQuery
 {
+	use SmartObject;
 	use TSpecificationQuery;
 
 	/** @var callable[] */

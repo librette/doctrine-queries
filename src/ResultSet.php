@@ -13,8 +13,9 @@ use Nette\Utils\Paginator as UIPaginator;
 /**
  * @author David Matejka
  */
-class ResultSet extends Nette\Object implements \IteratorAggregate, IResultSet
+class ResultSet implements \IteratorAggregate, IResultSet
 {
+	use Nette\SmartObject;
 
 	/** @var int */
 	private $totalCount;

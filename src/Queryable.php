@@ -6,13 +6,14 @@ use Kdyby\Doctrine\QueryBuilder;
 use Librette\Queries\IQueryable;
 use Librette\Queries\IQueryHandler;
 use Librette\Queries\IQueryHandlerAccessor;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class Queryable extends Object implements IQueryable
+class Queryable implements IQueryable
 {
+	use SmartObject;
 
 	/** @var EntityManager */
 	protected $entityManager;

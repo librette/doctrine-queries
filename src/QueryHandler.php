@@ -1,16 +1,18 @@
 <?php
+
 namespace Librette\Doctrine\Queries;
 
 use Librette\Queries\IQuery as BaseQuery;
 use Librette\Queries\IQueryHandler;
 use Librette\Queries\IResultSet;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class QueryHandler extends Object implements IQueryHandler
+class QueryHandler implements IQueryHandler
 {
+	use SmartObject;
 
 	/** @var Queryable */
 	protected $queryable;
