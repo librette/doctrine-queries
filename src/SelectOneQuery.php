@@ -18,10 +18,7 @@ class SelectOneQuery extends BaseQueryObject
 	private $orderBy = [];
 
 
-	/**
-	 * @param string
-	 */
-	public function __construct($entityClass, array $filters = [])
+	public function __construct(string $entityClass, array $filters = [])
 	{
 		$this->entityClass = $entityClass;
 		$this->filters = array_map(NULL, array_keys($filters), $filters);
@@ -31,9 +28,8 @@ class SelectOneQuery extends BaseQueryObject
 	/**
 	 * @param string|\Closure
 	 * @param string|array|null|mixed
-	 * @return self
 	 */
-	public function filterBy($field, $value = NULL)
+	public function filterBy($field, $value = NULL): self
 	{
 		$this->filters[] = [$field, $value];
 
@@ -44,9 +40,8 @@ class SelectOneQuery extends BaseQueryObject
 	/**
 	 * @param string
 	 * @param string
-	 * @return self
 	 */
-	public function orderBy($field, $direction = 'ASC')
+	public function orderBy($field, $direction = 'ASC'): self
 	{
 		$this->orderBy[$field] = $direction;
 
@@ -58,7 +53,7 @@ class SelectOneQuery extends BaseQueryObject
 	{
 		$qb = $queryable->createQueryBuilder($this->entityClass, 'e');
 		foreach ($this->filters as $filter) {
-			list ($field, $value) = $filter;
+			[$field, $value] = $filter;
 			if ($value === NULL && $field instanceof \Closure) {
 				$field($qb, 'e');
 			} else {

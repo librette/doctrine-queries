@@ -15,7 +15,7 @@ trait TSpecificationQuery
 	private $specifications = [];
 
 
-	public function addSpecification(ISpecification $specification)
+	public function addSpecification(ISpecification $specification): self
 	{
 		$this->specifications[] = $specification;
 
@@ -23,7 +23,7 @@ trait TSpecificationQuery
 	}
 
 
-	protected function applySpecifications(QueryBuilder $queryBuilder, $alias)
+	protected function applySpecifications(QueryBuilder $queryBuilder, string $alias)
 	{
 		$andX = new Query\Expr\Andx();
 		foreach ($this->specifications as $specification) {
@@ -35,7 +35,7 @@ trait TSpecificationQuery
 	}
 
 
-	protected function modifyQuery(Query $query)
+	protected function modifyQuery(Query $query): void
 	{
 		foreach ($this->specifications as $specification) {
 			$specification->modifyQuery($query);

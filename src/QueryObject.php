@@ -31,11 +31,7 @@ abstract class QueryObject implements IResultSetQuery, IQuery
 	private $lastResult;
 
 
-	/**
-	 * @param IQueryable
-	 * @return IResultSet
-	 */
-	public function fetch(IQueryable $queryable)
+	public function fetch(IQueryable $queryable): IResultSet
 	{
 		if (!$queryable instanceof Queryable) {
 			throw new InvalidArgumentException("\$queryable must be an instance of " . Queryable::class);
@@ -49,11 +45,9 @@ abstract class QueryObject implements IResultSetQuery, IQuery
 
 
 	/**
-	 * @param IQueryable
-	 * @return \Doctrine\ORM\Query
 	 * @internal
 	 */
-	public function getQuery(Queryable $repository)
+	public function getQuery(Queryable $repository): Doctrine\ORM\Query
 	{
 		$qb = $this->createQuery($repository);
 		$this->applySpecifications($qb, $qb->getRootAliases()[0]);
@@ -75,40 +69,27 @@ abstract class QueryObject implements IResultSetQuery, IQuery
 
 	/**
 	 * @internal
-	 * @return \Doctrine\ORM\Query
 	 */
-	public function getLastQuery()
+	public function getLastQuery(): ?Doctrine\ORM\Query
 	{
 		return $this->lastQuery;
 	}
 
 
-	/**
-	 * @param Doctrine\ORM\Query
-	 * @param Queryable
-	 * @return IResultSet
-	 */
-	protected function createResultSet(Doctrine\ORM\Query $query, Queryable $queryable)
+	protected function createResultSet(Doctrine\ORM\Query $query, Queryable $queryable): IResultSet
 	{
 		return new ResultSet($query, $this, $queryable);
 	}
 
 
-	/**
-	 * @param Queryable
-	 * @return QueryBuilder
-	 */
-	abstract protected function createQuery(Queryable $queryable);
+	abstract protected function createQuery(Queryable $queryable): QueryBuilder;
 
 
 	/**
-	 * @param Queryable
-	 * @param \Traversable
 	 * @internal
 	 */
 	public function queryFetched(Queryable $queryable, \Traversable $data)
 	{
 		$this->onPostFetch($this, $queryable, $data);
 	}
-
 }

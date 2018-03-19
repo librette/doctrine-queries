@@ -64,7 +64,7 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	 * @throws InvalidStateException
 	 * @return ResultSet
 	 */
-	public function setFetchJoinCollection($fetchJoinCollection)
+	public function setFetchJoinCollection($fetchJoinCollection): self
 	{
 		$this->updating();
 
@@ -80,7 +80,7 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	 * @throws InvalidStateException
 	 * @return ResultSet
 	 */
-	public function setUseOutputWalkers($useOutputWalkers)
+	public function setUseOutputWalkers($useOutputWalkers): self
 	{
 		$this->updating();
 
@@ -92,11 +92,9 @@ class ResultSet implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @param int
-	 * @param int
-	 * @return ResultSet
+	 * @return self
 	 */
-	public function applyPaging($offset, $limit)
+	public function applyPaging(int $offset, int $limit): IResultSet
 	{
 		if ($this->query->getFirstResult() != $offset || $this->query->getMaxResults() != $limit) {
 			$this->query->setFirstResult($offset);
@@ -109,11 +107,9 @@ class ResultSet implements \IteratorAggregate, IResultSet
 
 
 	/**
-	 * @param \Nette\Utils\Paginator
-	 * @param int
-	 * @return ResultSet
+	 * @return self
 	 */
-	public function applyPaginator(UIPaginator $paginator, $itemsPerPage = NULL)
+	public function applyPaginator(UIPaginator $paginator, ?int $itemsPerPage = NULL): IResultSet
 	{
 		if ($itemsPerPage !== NULL) {
 			$paginator->setItemsPerPage($itemsPerPage);
@@ -126,10 +122,7 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	}
 
 
-	/**
-	 * @return bool
-	 */
-	public function isEmpty()
+	public function isEmpty(): bool
 	{
 		$count = $this->getTotalCount();
 		$offset = $this->query->getFirstResult();
@@ -142,7 +135,7 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	 * @throws \Kdyby\Doctrine\QueryException
 	 * @return int
 	 */
-	public function getTotalCount()
+	public function getTotalCount(): int
 	{
 		if ($this->totalCount === NULL) {
 			$this->frozen = TRUE;
@@ -154,11 +147,7 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	}
 
 
-	/**
-	 * @param int|null
-	 * @return \ArrayIterator
-	 */
-	public function getIterator($hydrationMode = NULL)
+	public function getIterator(?int $hydrationMode = NULL): \Iterator
 	{
 		if ($this->iterator !== NULL) {
 			return $this->iterator;
@@ -180,30 +169,19 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	}
 
 
-	/**
-	 * @param int|null
-	 * @return array
-	 */
-	public function toArray($hydrationMode = NULL)
+	public function toArray(?int $hydrationMode = NULL): array
 	{
 		return iterator_to_array(clone $this->getIterator($hydrationMode), TRUE);
 	}
 
 
-	/**
-	 * @return int
-	 */
-	public function count()
+	public function count(): int
 	{
 		return $this->getIterator()->count();
 	}
 
 
-	/**
-	 * @param ORM\Query
-	 * @return ResultPaginator
-	 */
-	private function createPaginatedQuery(ORM\Query $query)
+	private function createPaginatedQuery(ORM\Query $query): ResultPaginator
 	{
 		$paginated = new ResultPaginator($query, $this->fetchJoinCollection);
 		$paginated->setUseOutputWalkers($this->useOutputWalkers);
@@ -212,11 +190,10 @@ class ResultSet implements \IteratorAggregate, IResultSet
 	}
 
 
-	private function updating()
+	private function updating(): void
 	{
 		if ($this->frozen !== FALSE) {
 			throw new InvalidStateException("Cannot modify result set, that was already fetched from storage.");
 		}
 	}
-
 }

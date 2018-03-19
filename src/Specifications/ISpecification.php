@@ -10,19 +10,10 @@ use Doctrine\ORM\QueryBuilder;
  */
 interface ISpecification
 {
-
 	/**
-	 * @param QueryBuilder
-	 * @param string
 	 * @return void|string|array|mixed
 	 */
-	public function match(QueryBuilder $queryBuilder, $alias);
+	public function match(QueryBuilder $queryBuilder, string $alias);
 
-
-	/**
-	 * @param Query
-	 * @return void
-	 */
-	public function modifyQuery(Query $query);
-
+	public function modifyQuery(Query $query): void;
 }

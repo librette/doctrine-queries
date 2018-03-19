@@ -2,6 +2,7 @@
 
 namespace Librette\Doctrine\Queries;
 
+use Doctrine\ORM\Query;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\QueryBuilder;
 use Librette\Queries\IQueryable;
@@ -23,10 +24,6 @@ class Queryable implements IQueryable
 	private $queryHandlerAccessor;
 
 
-	/**
-	 * @param EntityManager
-	 * @param IQueryHandlerAccessor
-	 */
 	public function __construct(EntityManager $entityManager, IQueryHandlerAccessor $queryHandlerAccessor)
 	{
 		$this->entityManager = $entityManager;
@@ -34,13 +31,7 @@ class Queryable implements IQueryable
 	}
 
 
-	/**
-	 * @param string|null
-	 * @param string|null
-	 * @param string|null
-	 * @return QueryBuilder
-	 */
-	public function createQueryBuilder($entityClass = NULL, $alias = NULL, $indexBy = NULL)
+	public function createQueryBuilder(?string $entityClass = NULL, ?string $alias = NULL, ?string $indexBy = NULL): QueryBuilder
 	{
 		$qb = $this->entityManager->createQueryBuilder();
 		if ($entityClass) {
@@ -52,27 +43,20 @@ class Queryable implements IQueryable
 	}
 
 
-	public function createQuery($query)
+	public function createQuery(string $query): Query
 	{
 		return $this->entityManager->createQuery($query);
 	}
 
 
-	/**
-	 * @return IQueryHandler
-	 */
-	public function getHandler()
+	public function getHandler(): IQueryHandler
 	{
 		return $this->queryHandlerAccessor->get();
 	}
 
 
-	/**
-	 * @return EntityManager
-	 */
-	public function getEntityManager()
+	public function getEntityManager(): EntityManager
 	{
 		return $this->entityManager;
 	}
-
 }

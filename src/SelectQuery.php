@@ -2,6 +2,8 @@
 
 namespace Librette\Doctrine\Queries;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * @author David Matejka
  */
@@ -21,10 +23,7 @@ class SelectQuery extends QueryObject
 	private $indexBy;
 
 
-	/**
-	 * @param string
-	 */
-	public function __construct($entityClass)
+	public function __construct(string $entityClass)
 	{
 		$this->entityClass = $entityClass;
 	}
@@ -33,9 +32,8 @@ class SelectQuery extends QueryObject
 	/**
 	 * @param string|\Closure
 	 * @param string|array|null|mixed
-	 * @return self
 	 */
-	public function filterBy($field, $value = NULL)
+	public function filterBy($field, $value = NULL): self
 	{
 		$this->filters[] = [$field, $value];
 
@@ -43,12 +41,7 @@ class SelectQuery extends QueryObject
 	}
 
 
-	/**
-	 * @param string
-	 * @param string
-	 * @return self
-	 */
-	public function orderBy($field, $direction = 'ASC')
+	public function orderBy(string $field, string $direction = 'ASC'): self
 	{
 		$this->orderBy[$field] = $direction;
 
@@ -56,11 +49,7 @@ class SelectQuery extends QueryObject
 	}
 
 
-	/**
-	 * @param string
-	 * @return self
-	 */
-	public function indexBy($field)
+	public function indexBy(string $field): self
 	{
 		if (strpos($field, '.') === FALSE) {
 			$field = 'e.' . $field;
@@ -71,11 +60,11 @@ class SelectQuery extends QueryObject
 	}
 
 
-	protected function createQuery(Queryable $queryable)
+	protected function createQuery(Queryable $queryable): QueryBuilder
 	{
 		$qb = $queryable->createQueryBuilder($this->entityClass, 'e');
 		foreach ($this->filters as $filter) {
-			list ($field, $value) = $filter;
+			[$field, $value] = $filter;
 			if ($value === NULL && $field instanceof \Closure) {
 				$field($qb, 'e');
 			} else {

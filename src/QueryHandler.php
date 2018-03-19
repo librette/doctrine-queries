@@ -18,16 +18,13 @@ class QueryHandler implements IQueryHandler
 	protected $queryable;
 
 
-	/**
-	 * @param Queryable
-	 */
 	public function __construct(Queryable $queryable)
 	{
 		$this->queryable = $queryable;
 	}
 
 
-	public function supports(BaseQuery $query)
+	public function supports(BaseQuery $query): bool
 	{
 		return $query instanceof IQuery;
 	}
