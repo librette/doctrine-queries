@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\Doctrine\Queries;
 
 /**
@@ -15,6 +16,7 @@ class SelectOneQuery extends BaseQueryObject
 
 	/** @var array */
 	private $orderBy = [];
+
 
 	/**
 	 * @param string

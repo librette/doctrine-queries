@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\Doctrine\Queries;
 
 use Librette\Queries\InvalidArgumentException;
 use Librette\Queries\IQueryable;
-use Nette\Object;
 use Nette\SmartObject;
 
 /**
@@ -12,6 +12,7 @@ use Nette\SmartObject;
 abstract class BaseQueryObject implements IQuery
 {
 	use SmartObject;
+
 
 	/**
 	 * @param IQueryable

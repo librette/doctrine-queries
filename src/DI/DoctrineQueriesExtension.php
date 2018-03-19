@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\Doctrine\Queries\DI;
 
 use Librette\Doctrine\Queries\Queryable;

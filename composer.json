@@ -3,6 +3,7 @@
 	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"type": "library",
 	"require": {
+		"php": ">=7.1",
 		"librette/queries": "@dev",
 		"nette/utils": "~2.4",
 		"kdyby/doctrine": "@dev"
