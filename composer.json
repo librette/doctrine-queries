@@ -5,7 +5,7 @@
 	"require": {
 		"php": ">=7.1",
 		"librette/queries": "@dev",
-		"nette/utils": "~2.4",
+		"nette/utils": "~2.4 || ~3.0",
 		"kdyby/doctrine": "@dev"
 	},
 	"require-dev": {
